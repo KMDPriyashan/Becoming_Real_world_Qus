@@ -102,7 +102,7 @@ public class LankaTrustBank {
         
     }
     public static void withdrowMoney(){
-        
+        //must be start
     }
     public static void miniStatment(){
         
