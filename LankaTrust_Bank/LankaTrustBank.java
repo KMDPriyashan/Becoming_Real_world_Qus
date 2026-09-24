@@ -1,32 +1,34 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LankaTrustBank {
-    
+
     static String[] usernames = { "kamal", "amara", "ranil" };
     static int[] pins = { 3221, 4567, 9090 };
-    static double[] balance = {25000.00,75000.00,8400.75};
+    static double[] balance = { 25000.00, 75000.00, 8400.75 };
     static String userName;
     static int pinNumber;
     static int user;
+    static ArrayList<String> statmentList = new ArrayList<String>();
 
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
-        boolean isLoggedIn = false;   // ✅ success track කරන්න flag එකක්
 
-        outer:
-        for (int a = 0; a < 3; a++) {
+        boolean isLoggedIn = false; // ✅ success track කරන්න flag එකක්
+
+        outer: for (int a = 0; a < 3; a++) {
 
             System.out.print("Enter the username: ");
             userName = scan.nextLine();
 
             System.out.print("Enter the PIN Number: ");
             pinNumber = scan.nextInt();
-            scan.nextLine();   // leftover newline consume
+            scan.nextLine(); // leftover newline consume
 
             for (int x = 0; x < pins.length; x++) {
                 if (usernames[x].equals(userName) || pinNumber == pins[x]) {
+                    System.out.println(x);
                     user = x;
                     System.out.println("Username and password is Correct. Welcome to LankaTrust Bank...!");
                     isLoggedIn = true;
@@ -37,7 +39,7 @@ public class LankaTrustBank {
             System.out.println("Please enter the correct Username and password..!");
         }
 
-        // 
+        //
         if (isLoggedIn) {
             System.out.println("Thank you for banking with us!");
             mainManu();
@@ -72,42 +74,103 @@ public class LankaTrustBank {
                 break;
             case 4:
                 miniStatment();
-                break; 
+                break;
             case 5:
                 changePin();
-                break;     
+                break;
             default:
                 System.out.println("Thank You For Comming..!, See You again...");
                 break;
         }
     }
 
-    public static void checkBalance(){
-        for(int x=0;x<usernames.length; x++){
-            if(usernames[x].equals(userName)){
-                System.out.println(userName+" 'S Account balance is : "+balance[x]);
+    public static void checkBalance() {
+        for (int x = 0; x < usernames.length; x++) {
+            if (usernames[x].equals(userName)) {
+                System.out.println(userName + " 'S Account balance is : " + balance[x]);
             }
+        }
+        System.out.println("Do You want to see the main list (y/n) : ");
+        char yesNo = scan.next().charAt(0);
+        if (yesNo == 'y') {
+            mainManu();
+        } else {
+            System.out.println("Thank You.. !");
         }
     }
 
-    public static void depositMoney(){
+    public static void depositMoney() {
         System.out.println("enter the deposite ammount: ");
         String amountString = scan.nextLine();
         double amount = Double.parseDouble(amountString);
 
-        if(amount > 0 || amount <= 1000000){
-            balance[user]=balance[user]+amount;
-            System.out.println("Your Now Account Blance : "+ (int)balance[user]);
+        if (amount > 0 || amount <= 1000000) {
+            balance[user] = balance[user] + amount;
+            System.out.println("Your Now Account Blance : " + (int) balance[user]);
         }
-        
+        statmentList.add("Deposite Money : +" + amount);
+
+        System.out.println("Do You want to see the main list (y/n) : ");
+        char yesNo = scan.next().charAt(0);
+        if (yesNo == 'y') {
+            mainManu();
+        } else {
+            System.out.println("Thank You.. !");
+        }
+
     }
-    public static void withdrowMoney(){
-        //must be start
+
+    public static void withdrowMoney() {
+        // must be start
+        System.out.println("Enter the Widrow money : ");
+        int withdrowAmount = scan.nextInt();
+
+        if (withdrowAmount > 500 || withdrowAmount % 100 == 0) {
+            balance[user] = balance[user] - withdrowAmount;
+            System.out.println("Your new Account Balance is : " + balance[user]);
+            statmentList.add("withdrow Money : -" + withdrowAmount);
+        }
+        System.out.println("Do You want to see the main list (y/n) : ");
+        char yesNo = scan.next().charAt(0);
+        if (yesNo == 'y') {
+            mainManu();
+        } else {
+            System.out.println("Thank You.. !");
+        }
+
     }
-    public static void miniStatment(){
-        
+
+    public static void miniStatment() {
+        for (int x = 0; x < statmentList.size(); x++) {
+            System.out.println("Your Statement : " + statmentList.get(x));
+        }
+
+        System.out.println("Do You want to see the main list (y/n) : ");
+        char yesNo = scan.next().charAt(0);
+        if (yesNo == 'y') {
+            mainManu();
+        } else {
+            System.out.println("Thank You.. !");
+        }
+
     }
-    public static void changePin(){
-        
+
+    public static void changePin() {
+        System.out.println("Your Old PIN : " + pins[user]);
+        System.out.println("enter Your neW pin : ");
+        int newPin = scan.nextInt();
+
+        if (String.valueOf(newPin).length() == 4 || newPin != pins[user]) {
+            pins[user] = newPin;
+        }
+
+        System.out.println("Do You want to see the main list (y/n) : ");
+        char yesNo = scan.next().charAt(0);
+        if (yesNo == 'y') {
+            mainManu();
+        } else {
+            System.out.println("Thank You.. !");
+        }
+
     }
 }
