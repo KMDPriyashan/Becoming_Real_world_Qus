@@ -1,29 +1,34 @@
 package Grade_Management_System;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class gradeSystem {
-    private static  String studentID;
+    private static String studentID;
     private static String name;
     private static int age;
     private static String[] studentIDs;
     static Scanner scan = new Scanner(System.in);
 
-    gradeSystem(int arraySize , double loadFact){
+    gradeSystem(int arraySize, double loadFact) {
         studentIDs = new String[arraySize];
     }
 
     public enum GradeLevel {
         FRESHMAN, SOPHOMORE, JUNIOR, SENIOR
     }
+
+    static String filename = "student.txt";
+
     ArrayList<Integer> marks = new ArrayList<>();
     ArrayList<String> subject = new ArrayList<>();
 
-    public static  void systemProfile(){
+    public static void systemProfile() {
         System.out.println("1. Add New Student");
         System.out.println("2. View All Students");
         System.out.println("3. Search Student by ID");
@@ -33,11 +38,13 @@ public class gradeSystem {
         System.out.println("7. Calculate Class Statistics");
         System.out.println("8. Export Data to CSV");
         System.out.println("9. Exit");
-        
-    }
-    public static void addStudent(){
 
-// user inputs ================================================================================================
+    }
+
+    public static void addStudent() throws IOException {
+
+        // user inputs
+        // ================================================================================================
 
         System.out.println("enter Your Student ID : ");
         studentID = scan.nextLine();
@@ -48,15 +55,14 @@ public class gradeSystem {
         System.out.println("enter Your age : ");
         age = scan.nextInt();
 
-// validation =================================================================================================
+        // validation
+        // =================================================================================================
 
-        if(age >= 5 || age <= 25){
+        if (age >= 5 || age <= 25) {
             System.out.println("You are the eligible student !");
-        }else{
+        } else {
             System.out.println("You are a not eligibal student. please try again !");
         }
-
-        
 
         System.out.println("=============== ENTER SUBJECT MARKS ================");
 
@@ -67,12 +73,34 @@ public class gradeSystem {
         System.out.println("Enter Your maths mark : ");
         int BioMark = scan.nextInt();
 
-        double average = (mathMark+scienceMark+BioMark)/3;
+        double average = (mathMark + scienceMark + BioMark) / 3;
+
+        for (int x = 0; x < studentID.length(); x++) {
+            if (studentID.equals(studentIDs[x])) {
+                System.out.println("That studentId already have taken...! please enter the new Student ID..!");
+                break;
+            }else if (x == studentID.length()-1) {
+                studentIDs[x]=studentID;
+            }
+        }
+
+// ====================================== DOCUMENET WRITE ===================================
+
+        FileWriter write = new FileWriter(filename);
+        BufferedWriter buffer = new BufferedWriter(write);
+
+        buffer.write(studentID+" |");
+        buffer.write(name+" |");
+        buffer.write(age+" |");
+        buffer.write(mathMark+" |");
+        buffer.write(BioMark+" |");
+        buffer.write(scienceMark+" |");
+
     }
-    
+
     public static void main(String[] args) throws IOException {
-        
-        gradeSystem g1 = new gradeSystem(50,0.25);
+
+        gradeSystem g1 = new gradeSystem(50, 0.25);
 
         String fileName = "student.txt";
 
@@ -94,9 +122,9 @@ public class gradeSystem {
             case 1:
                 addStudent();
                 break;
-        
+
             default:
                 break;
         }
-    } 
+    }
 }
