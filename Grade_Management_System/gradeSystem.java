@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class gradeSystem {
     private static String studentID;
-    private static String name;
+    private static String name,Gradelv,Grade;
     private static int age;
     private static String[] studentIDs;
     static Scanner scan = new Scanner(System.in);
@@ -48,30 +48,40 @@ public class gradeSystem {
 
         System.out.println("enter Your Student ID : ");
         studentID = scan.nextLine();
+        scan.next();
 
         System.out.println("enter Your name : ");
         name = scan.nextLine();
+        scan.next();
 
         System.out.println("enter Your age : ");
         age = scan.nextInt();
 
-        // validation
-        // =================================================================================================
-
-        if (age >= 5 || age <= 25) {
-            System.out.println("You are the eligible student !");
-        } else {
-            System.out.println("You are a not eligibal student. please try again !");
+        System.out.print("enter Your grade fallowing category : ");
+        System.out.print("[ ");
+        for(int x=0; x<GradeLevel.values().length;x++){
+            System.out.print(" ," + GradeLevel.values()[x]);
         }
+        System.out.println(" ] :");
+        Gradelv = scan.nextLine();
+        scan.next();
 
-        System.out.println("=============== ENTER SUBJECT MARKS ================");
+
+        System.out.println("/t=============== ENTER SUBJECT MARKS ================");
 
         System.out.println("Enter Your maths mark : ");
         int mathMark = scan.nextInt();
+
         System.out.println("Enter Your maths mark : ");
         int scienceMark = scan.nextInt();
+
         System.out.println("Enter Your maths mark : ");
         int BioMark = scan.nextInt();
+        scan.next();
+
+        
+        // validation
+        // =================================================================================================
 
         double average = (mathMark + scienceMark + BioMark) / 3;
 
@@ -79,22 +89,46 @@ public class gradeSystem {
             if (studentID.equals(studentIDs[x])) {
                 System.out.println("That studentId already have taken...! please enter the new Student ID..!");
                 break;
-            }else if (x == studentID.length()-1) {
-                studentIDs[x]=studentID;
+            } else if (x == studentID.length() - 1) {
+                studentIDs[x] = studentID;
             }
         }
 
-// ====================================== DOCUMENET WRITE ===================================
+        if (age >= 5 || age <= 25) {
+            System.out.println("You are the eligible student !");
+        } else {
+            System.out.println("You are a not eligibal student. please try again !");
+        }
+
+        if(average >= 75){
+            Grade = "A";
+        }else if (average >= 60) {
+            Grade = "B";
+        }else if (average >= 45) {
+            Grade = "C";
+        }else if (average >= 35) {
+            Grade = "S";
+        }else{
+            Grade = "F";
+        }
+
+        // ====================================== DOCUMENET WRITE
+        // ===================================
 
         FileWriter write = new FileWriter(filename);
         BufferedWriter buffer = new BufferedWriter(write);
 
-        buffer.write(studentID+" |");
-        buffer.write(name+" |");
-        buffer.write(age+" |");
-        buffer.write(mathMark+" |");
-        buffer.write(BioMark+" |");
-        buffer.write(scienceMark+" |");
+        buffer.write(studentID + " |");
+        buffer.write(name + " |");
+        buffer.write(age + " |");
+        buffer.write(mathMark + " |");
+        buffer.write(BioMark + " |");
+        buffer.write(scienceMark + " |");
+        buffer.write(average + " |");
+        buffer.write(Gradelv + " |");
+        buffer.write(Grade + " |");
+
+        System.out.println("Student Registration is Successfully..!");
 
     }
 
