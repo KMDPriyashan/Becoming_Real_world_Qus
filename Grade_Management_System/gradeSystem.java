@@ -127,6 +127,7 @@ public class gradeSystem {
         buffer.write(average + " |");
         buffer.write(Gradelv + " |");
         buffer.write(Grade + " |");
+        buffer.write("-------------------------------------------------------------------------------------------------");
 
         System.out.println("Student Registration is Successfully..!");
 
