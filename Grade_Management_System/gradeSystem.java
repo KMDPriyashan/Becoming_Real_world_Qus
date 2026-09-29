@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class gradeSystem {
     private static String studentID;
-    private static String name,Gradelv,Grade;
+    private static String name, Gradelv, Grade;
     private static int age;
     private static String[] studentIDs;
     static Scanner scan = new Scanner(System.in);
@@ -59,13 +59,12 @@ public class gradeSystem {
 
         System.out.print("enter Your grade fallowing category : ");
         System.out.print("[ ");
-        for(int x=0; x<GradeLevel.values().length;x++){
+        for (int x = 0; x < GradeLevel.values().length; x++) {
             System.out.print(" ," + GradeLevel.values()[x]);
         }
         System.out.println(" ] :");
         Gradelv = scan.nextLine();
         scan.next();
-
 
         System.out.println("/t=============== ENTER SUBJECT MARKS ================");
 
@@ -79,7 +78,6 @@ public class gradeSystem {
         int BioMark = scan.nextInt();
         scan.next();
 
-        
         // validation
         // =================================================================================================
 
@@ -100,15 +98,15 @@ public class gradeSystem {
             System.out.println("You are a not eligibal student. please try again !");
         }
 
-        if(average >= 75){
+        if (average >= 75) {
             Grade = "A";
-        }else if (average >= 60) {
+        } else if (average >= 60) {
             Grade = "B";
-        }else if (average >= 45) {
+        } else if (average >= 45) {
             Grade = "C";
-        }else if (average >= 35) {
+        } else if (average >= 35) {
             Grade = "S";
-        }else{
+        } else {
             Grade = "F";
         }
 
@@ -127,11 +125,38 @@ public class gradeSystem {
         buffer.write(average + " |");
         buffer.write(Gradelv + " |");
         buffer.write(Grade + " |");
-        buffer.write("-------------------------------------------------------------------------------------------------");
+        buffer.write(
+                "-------------------------------------------------------------------------------------------------");
 
         System.out.println("Student Registration is Successfully..!");
 
     }
+
+    public static void search(String studentid) {
+        for (int x = 0; x < studentIDs.length; x++) {
+            if (studentid.equals(studentIDs[x])) {
+                System.out.println("That user already registered..!");
+            }
+        }
+    }
+
+    public static void viewAllStudent(){
+
+    }
+
+    public static void updateStudentMarks(){
+
+    }
+
+    public static void deleteStudent(){
+
+    }
+
+    public static void reportGenerate(){
+
+    }
+
+
 
     public static void main(String[] args) throws IOException {
 
