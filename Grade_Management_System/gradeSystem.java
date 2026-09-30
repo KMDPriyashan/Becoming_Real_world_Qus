@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -125,8 +126,7 @@ public class gradeSystem {
         buffer.write(average + " |");
         buffer.write(Gradelv + " |");
         buffer.write(Grade + " |");
-        buffer.write(
-                "-------------------------------------------------------------------------------------------------");
+        buffer.write("-------------------------------------------------------------------------------------------------");
 
         System.out.println("Student Registration is Successfully..!");
 
@@ -140,8 +140,15 @@ public class gradeSystem {
         }
     }
 
-    public static void viewAllStudent(){
+    public static void viewAllStudent() throws IOException{
+        FileReader read = new FileReader(filename);
+        BufferedReader buffer = new BufferedReader(read); 
 
+        String line;
+        System.out.println("all contnet line by line");
+        while ((line = buffer.readLine()) != null) {
+            System.out.println(line);
+        }
     }
 
     public static void updateStudentMarks(){
